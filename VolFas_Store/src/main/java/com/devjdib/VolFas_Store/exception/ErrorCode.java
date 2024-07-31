@@ -18,7 +18,8 @@ public enum ErrorCode {
     INVALID_THREE_CHARACTER(1005, "This field must contain at least three character!"),
     INVALID_PHONE_NUMBER(1006, "Invalid phone number!"),
     INVALID_PASSWORD(1007, "Invalid password!"),
-    USER_NOT_FOUND(1008, "User not found!")
+    USER_NOT_FOUND(1008, "User not found!"),
+    USER_NOT_EXISTED(1009, "User not existed!")
     ;
 
     int code;
