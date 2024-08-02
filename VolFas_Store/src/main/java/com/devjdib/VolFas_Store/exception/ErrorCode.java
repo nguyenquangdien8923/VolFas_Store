@@ -19,7 +19,9 @@ public enum ErrorCode {
     INVALID_PHONE_NUMBER(1006, "Invalid phone number!"),
     INVALID_PASSWORD(1007, "Invalid password!"),
     USER_NOT_FOUND(1008, "User not found!"),
-    USER_NOT_EXISTED(1009, "User not existed!")
+    USER_NOT_EXISTED(1009, "User not existed!"),
+    INCORRECT_PASSWORD(1010, "Password is incorrect!"),
+    INVALID_TOKEN(1011, "Invalid token!")
     ;
 
     int code;
