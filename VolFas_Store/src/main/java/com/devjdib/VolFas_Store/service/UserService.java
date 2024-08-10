@@ -2,8 +2,10 @@ package com.devjdib.VolFas_Store.service;
 
 import com.devjdib.VolFas_Store.dto.request.UserCreateRequest;
 import com.devjdib.VolFas_Store.dto.request.UserUpdateRequest;
+import com.devjdib.VolFas_Store.dto.response.UserInfoResponse;
 import com.devjdib.VolFas_Store.dto.response.UserResponse;
 import com.devjdib.VolFas_Store.entity.User;
+import com.devjdib.VolFas_Store.enums.Role;
 import com.devjdib.VolFas_Store.exception.AppException;
 import com.devjdib.VolFas_Store.exception.ErrorCode;
 import com.devjdib.VolFas_Store.mapper.UserMapper;
@@ -13,7 +15,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -27,8 +31,13 @@ public class UserService {
             throw new AppException(ErrorCode.EMAIL_EXISTED);
 
         User user = userMapper.toUser(request);
+
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        HashSet<String> roles = new HashSet<>();
+        roles.add(Role.USER.name());
+        user.setRoles(roles);
 
         return userMapper.toUserResponse(userRepository.save(user));
     }
@@ -53,6 +62,10 @@ public class UserService {
     public UserResponse getUserById(String id) {
         return userMapper.toUserResponse(userRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND)));
+    }
+
+    public UserInfoResponse getMyInfo(String email) {
+        return userMapper.toUserInfoResponse(userRepository.findByEmail(email).orElseThrow());
     }
 
 }

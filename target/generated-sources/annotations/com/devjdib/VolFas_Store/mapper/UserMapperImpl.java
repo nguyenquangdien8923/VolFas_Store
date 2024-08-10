@@ -2,16 +2,19 @@ package com.devjdib.VolFas_Store.mapper;
 
 import com.devjdib.VolFas_Store.dto.request.UserCreateRequest;
 import com.devjdib.VolFas_Store.dto.request.UserUpdateRequest;
+import com.devjdib.VolFas_Store.dto.response.UserInfoResponse;
 import com.devjdib.VolFas_Store.dto.response.UserResponse;
 import com.devjdib.VolFas_Store.entity.User;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-09T08:43:04+0700",
+    date = "2024-08-10T10:54:16+0700",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 22.0.1 (Oracle Corporation)"
 )
 @Component
@@ -32,7 +35,6 @@ public class UserMapperImpl implements UserMapper {
         user.email( request.getEmail() );
         user.password( request.getPassword() );
         user.joinDate( request.getJoinDate() );
-        user.userType( request.isUserType() );
         user.status( request.getStatus() );
 
         return user.build();
@@ -66,10 +68,12 @@ public class UserMapperImpl implements UserMapper {
         userResponse.phoneNumber( user.getPhoneNumber() );
         userResponse.address( user.getAddress() );
         userResponse.email( user.getEmail() );
-        userResponse.password( user.getPassword() );
         userResponse.joinDate( user.getJoinDate() );
-        userResponse.userType( user.isUserType() );
         userResponse.status( user.getStatus() );
+        Set<String> set = user.getRoles();
+        if ( set != null ) {
+            userResponse.roles( new LinkedHashSet<String>( set ) );
+        }
 
         return userResponse.build();
     }
@@ -86,5 +90,30 @@ public class UserMapperImpl implements UserMapper {
         user.setAddress( userUpdateRequest.getAddress() );
         user.setPassword( userUpdateRequest.getPassword() );
         user.setStatus( userUpdateRequest.getStatus() );
+    }
+
+    @Override
+    public UserInfoResponse toUserInfoResponse(User user) {
+        if ( user == null ) {
+            return null;
+        }
+
+        UserInfoResponse.UserInfoResponseBuilder userInfoResponse = UserInfoResponse.builder();
+
+        userInfoResponse.id( user.getId() );
+        userInfoResponse.firstName( user.getFirstName() );
+        userInfoResponse.lastName( user.getLastName() );
+        userInfoResponse.phoneNumber( user.getPhoneNumber() );
+        userInfoResponse.address( user.getAddress() );
+        userInfoResponse.email( user.getEmail() );
+        userInfoResponse.password( user.getPassword() );
+        userInfoResponse.joinDate( user.getJoinDate() );
+        userInfoResponse.status( user.getStatus() );
+        Set<String> set = user.getRoles();
+        if ( set != null ) {
+            userInfoResponse.roles( new LinkedHashSet<String>( set ) );
+        }
+
+        return userInfoResponse.build();
     }
 }

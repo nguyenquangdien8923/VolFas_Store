@@ -8,6 +8,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Data
@@ -26,6 +27,6 @@ public class User {
     String email;
     String password;
     LocalDate joinDate;
-    boolean userType;
     int status;
+    Set<String> roles;
 }

@@ -33,6 +33,5 @@ public class UserCreateRequest {
 
     @Builder.Default
     LocalDate joinDate = LocalDate.now();
-    boolean userType = true;
     int status = 0;
 }

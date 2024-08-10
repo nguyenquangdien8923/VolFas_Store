@@ -13,13 +13,14 @@ import java.util.Set;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserResponse {
+public class UserInfoResponse {
     String id;
     String firstName;
     String lastName;
     String phoneNumber;
     String address;
     String email;
+    String password;
     LocalDate joinDate;
     int status;
     Set<String> roles;
