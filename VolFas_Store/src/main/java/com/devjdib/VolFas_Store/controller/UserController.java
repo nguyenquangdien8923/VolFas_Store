@@ -3,18 +3,13 @@ package com.devjdib.VolFas_Store.controller;
 import com.devjdib.VolFas_Store.dto.request.ApiResponse;
 import com.devjdib.VolFas_Store.dto.request.UserCreateRequest;
 import com.devjdib.VolFas_Store.dto.request.UserUpdateRequest;
-import com.devjdib.VolFas_Store.dto.response.UserInfoResponse;
 import com.devjdib.VolFas_Store.dto.response.UserResponse;
-import com.devjdib.VolFas_Store.entity.User;
 import com.devjdib.VolFas_Store.service.UserService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -59,13 +54,9 @@ public class UserController {
     }
 
     @GetMapping("/myInfo")
-    ApiResponse<UserInfoResponse> getMyInfo() {
-        var email = SecurityContextHolder.getContext().getAuthentication().getName();
-
-        var result = userService.getMyInfo(email);
-
-        return ApiResponse.<UserInfoResponse>builder()
-                .result(result)
+    ApiResponse<UserResponse> getMyInfo() {
+        return ApiResponse.<UserResponse>builder()
+                .result(userService.getMyInfo())
                 .build();
     }
 

@@ -2,7 +2,6 @@ package com.devjdib.VolFas_Store.mapper;
 
 import com.devjdib.VolFas_Store.dto.request.UserCreateRequest;
 import com.devjdib.VolFas_Store.dto.request.UserUpdateRequest;
-import com.devjdib.VolFas_Store.dto.response.UserInfoResponse;
 import com.devjdib.VolFas_Store.dto.response.UserResponse;
 import com.devjdib.VolFas_Store.entity.User;
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-10T10:54:16+0700",
+    date = "2024-08-14T08:10:34+0700",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 22.0.1 (Oracle Corporation)"
 )
 @Component
@@ -90,30 +89,5 @@ public class UserMapperImpl implements UserMapper {
         user.setAddress( userUpdateRequest.getAddress() );
         user.setPassword( userUpdateRequest.getPassword() );
         user.setStatus( userUpdateRequest.getStatus() );
-    }
-
-    @Override
-    public UserInfoResponse toUserInfoResponse(User user) {
-        if ( user == null ) {
-            return null;
-        }
-
-        UserInfoResponse.UserInfoResponseBuilder userInfoResponse = UserInfoResponse.builder();
-
-        userInfoResponse.id( user.getId() );
-        userInfoResponse.firstName( user.getFirstName() );
-        userInfoResponse.lastName( user.getLastName() );
-        userInfoResponse.phoneNumber( user.getPhoneNumber() );
-        userInfoResponse.address( user.getAddress() );
-        userInfoResponse.email( user.getEmail() );
-        userInfoResponse.password( user.getPassword() );
-        userInfoResponse.joinDate( user.getJoinDate() );
-        userInfoResponse.status( user.getStatus() );
-        Set<String> set = user.getRoles();
-        if ( set != null ) {
-            userInfoResponse.roles( new LinkedHashSet<String>( set ) );
-        }
-
-        return userInfoResponse.build();
     }
 }
