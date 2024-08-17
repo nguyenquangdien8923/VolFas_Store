@@ -5,6 +5,7 @@ import com.devjdib.VolFas_Store.dto.request.UserUpdateRequest;
 import com.devjdib.VolFas_Store.dto.response.UserResponse;
 import com.devjdib.VolFas_Store.entity.User;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import java.util.List;

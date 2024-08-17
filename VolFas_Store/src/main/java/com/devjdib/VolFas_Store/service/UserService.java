@@ -8,7 +8,11 @@ import com.devjdib.VolFas_Store.enums.Role;
 import com.devjdib.VolFas_Store.exception.AppException;
 import com.devjdib.VolFas_Store.exception.ErrorCode;
 import com.devjdib.VolFas_Store.mapper.UserMapper;
+import com.devjdib.VolFas_Store.repository.RoleRepository;
 import com.devjdib.VolFas_Store.repository.UserRepository;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
@@ -23,11 +27,12 @@ import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserService {
-    @Autowired
     UserRepository userRepository;
-    @Autowired
-    private UserMapper userMapper;
+    RoleRepository roleRepository;
+    UserMapper userMapper;
 
     public UserResponse createUser(UserCreateRequest request) {
         if(userRepository.existsByEmail(request.getEmail()))
