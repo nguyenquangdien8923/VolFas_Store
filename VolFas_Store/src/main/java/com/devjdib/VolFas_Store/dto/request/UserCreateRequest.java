@@ -31,6 +31,8 @@ public class UserCreateRequest {
     @Size(min = 8, message = "INVALID_PASSWORD")
     String password;
 
+    LocalDate dob;
+
     @Builder.Default
     LocalDate joinDate = LocalDate.now();
     int status = 0;

@@ -1,5 +1,6 @@
 package com.devjdib.VolFas_Store.dto.response;
 
+import com.devjdib.VolFas_Store.entity.Role;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -22,5 +23,5 @@ public class UserResponse {
     String email;
     LocalDate joinDate;
     int status;
-    Set<String> roles;
+    Set<Role> roles;
 }

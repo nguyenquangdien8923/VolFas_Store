@@ -4,6 +4,7 @@ import com.devjdib.VolFas_Store.dto.request.AuthenticationRequest;
 import com.devjdib.VolFas_Store.dto.request.IntrospectRequest;
 import com.devjdib.VolFas_Store.dto.response.AuthenticationResponse;
 import com.devjdib.VolFas_Store.dto.response.IntrospectResponse;
+import com.devjdib.VolFas_Store.entity.Role;
 import com.devjdib.VolFas_Store.entity.User;
 import com.devjdib.VolFas_Store.exception.AppException;
 import com.devjdib.VolFas_Store.exception.ErrorCode;
@@ -103,11 +104,15 @@ public class AuthenticationService {
         }
     }
 
-    private String buildScope(Set<String> roles){
+    private String buildScope(Set<Role> roles){
         StringJoiner stringJoiner = new StringJoiner(" ");
 
         if(!CollectionUtils.isEmpty(roles)){
-            roles.forEach(stringJoiner::add);
+            roles.forEach(role -> {
+                stringJoiner.add("ROLE_" + role.getName());
+                if(!CollectionUtils.isEmpty(role.getPermissions()))
+                    role.getPermissions().forEach(permission -> stringJoiner.add(permission.getName()));
+            });
         }
 
         return stringJoiner.toString();

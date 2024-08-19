@@ -70,11 +70,11 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
-    ApiResponse updateUser(@PathVariable String userId) {
+    ApiResponse<String> updateUser(@PathVariable String userId) {
         userService.deleteUser(userId);
 
-        return ApiResponse.<UserResponse>builder()
-                .message("Complete deleted.")
+        return ApiResponse.<String>builder()
+                .result("Complete deleted.")
                 .build();
     }
 

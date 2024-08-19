@@ -2,6 +2,7 @@ package com.devjdib.VolFas_Store.configuration;
 
 import com.devjdib.VolFas_Store.entity.User;
 import com.devjdib.VolFas_Store.enums.Role;
+import com.devjdib.VolFas_Store.repository.RoleRepository;
 import com.devjdib.VolFas_Store.repository.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -20,18 +21,20 @@ import java.util.HashSet;
 @Slf4j
 public class ApplicationInitConfig {
     PasswordEncoder passwordEncoder;
+    RoleRepository roleRepository;
 
     @Bean
     ApplicationRunner applicationRunner(UserRepository userRepository) {
         return args -> {
             if(userRepository.findByEmail("admin").isEmpty()) {
-                var roles = new HashSet<String>();
-                roles.add(Role.ADMIN.name());
+                var roleNames = new HashSet<String>();
+                roleNames.add(Role.ADMIN.name());
+                var roles = roleRepository.findAllById(roleNames);
 
                 User user = User.builder()
                         .email("admin")
                         .password(passwordEncoder.encode("admin"))
-                        .roles(roles)
+                        .roles(new HashSet<>(roles))
                         .build();
 
                 userRepository.save(user);

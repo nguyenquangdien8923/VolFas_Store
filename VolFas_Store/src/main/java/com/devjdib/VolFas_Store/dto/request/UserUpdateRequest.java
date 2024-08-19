@@ -1,10 +1,12 @@
 package com.devjdib.VolFas_Store.dto.request;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @Builder
@@ -21,11 +23,13 @@ public class UserUpdateRequest {
     @Pattern(regexp = "^0[0-9]{9}$", message = "INVALID_PHONE_NUMBER")
     String phoneNumber;
 
-    @NotBlank(message = "BLANK_FIELD")
     String address;
 
     @Size(min = 8, message = "INVALID_PASSWORD")
     String password;
 
+    LocalDate dob;
+
     int status;
+    Set<String> roles;
 }

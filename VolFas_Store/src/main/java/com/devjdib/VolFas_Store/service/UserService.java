@@ -3,8 +3,8 @@ package com.devjdib.VolFas_Store.service;
 import com.devjdib.VolFas_Store.dto.request.UserCreateRequest;
 import com.devjdib.VolFas_Store.dto.request.UserUpdateRequest;
 import com.devjdib.VolFas_Store.dto.response.UserResponse;
+import com.devjdib.VolFas_Store.entity.Role;
 import com.devjdib.VolFas_Store.entity.User;
-import com.devjdib.VolFas_Store.enums.Role;
 import com.devjdib.VolFas_Store.exception.AppException;
 import com.devjdib.VolFas_Store.exception.ErrorCode;
 import com.devjdib.VolFas_Store.mapper.UserMapper;
@@ -33,6 +33,7 @@ public class UserService {
     UserRepository userRepository;
     RoleRepository roleRepository;
     UserMapper userMapper;
+    PasswordEncoder passwordEncoder;
 
     public UserResponse createUser(UserCreateRequest request) {
         if(userRepository.existsByEmail(request.getEmail()))
@@ -43,9 +44,11 @@ public class UserService {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        HashSet<String> roles = new HashSet<>();
-        roles.add(Role.USER.name());
-        user.setRoles(roles);
+        var roleNames = new HashSet<String>();
+        roleNames.add("USER");
+
+        var roles = roleRepository.findAllById(roleNames);
+        user.setRoles(new HashSet<>(roles));
 
         return userMapper.toUserResponse(userRepository.save(user));
     }
@@ -56,6 +59,11 @@ public class UserService {
 
         userMapper.updateUser(user, request);
 
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        var roles = roleRepository.findAllById(request.getRoles());
+        user.setRoles(new HashSet<>(roles));
+
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
@@ -63,7 +71,8 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public List<UserResponse> getUsers() {
         log.info("In getUsers Method");
         return userMapper.toUsersResponse(userRepository.findAll());

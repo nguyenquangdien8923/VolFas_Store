@@ -3,6 +3,7 @@ package com.devjdib.VolFas_Store.mapper;
 import com.devjdib.VolFas_Store.dto.request.UserCreateRequest;
 import com.devjdib.VolFas_Store.dto.request.UserUpdateRequest;
 import com.devjdib.VolFas_Store.dto.response.UserResponse;
+import com.devjdib.VolFas_Store.entity.Role;
 import com.devjdib.VolFas_Store.entity.User;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-17T16:43:38+0700",
+    date = "2024-08-19T10:24:00+0700",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 22.0.1 (Oracle Corporation)"
 )
 @Component
@@ -69,9 +70,9 @@ public class UserMapperImpl implements UserMapper {
         userResponse.email( user.getEmail() );
         userResponse.joinDate( user.getJoinDate() );
         userResponse.status( user.getStatus() );
-        Set<String> set = user.getRoles();
+        Set<Role> set = user.getRoles();
         if ( set != null ) {
-            userResponse.roles( new LinkedHashSet<String>( set ) );
+            userResponse.roles( new LinkedHashSet<Role>( set ) );
         }
 
         return userResponse.build();
