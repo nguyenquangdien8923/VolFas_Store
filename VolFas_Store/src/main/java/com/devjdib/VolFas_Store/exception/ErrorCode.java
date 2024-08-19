@@ -25,6 +25,7 @@ public enum ErrorCode {
     INVALID_TOKEN(1010, "Invalid token!", HttpStatus.BAD_REQUEST),
     UNAUTHENTICATED(1011, "Unauthenticated!", HttpStatus.UNAUTHORIZED),
     UNAUTHORIZED(1012, "You don't have permission!", HttpStatus.FORBIDDEN),
+    INVALID_DOB(1013, "Invalid date of birth!", HttpStatus.BAD_REQUEST),
     ;
 
     int code;

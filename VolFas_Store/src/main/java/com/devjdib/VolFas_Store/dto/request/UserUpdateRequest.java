@@ -1,5 +1,6 @@
 package com.devjdib.VolFas_Store.dto.request;
 
+import com.devjdib.VolFas_Store.validator.DobConstraint;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -28,6 +29,7 @@ public class UserUpdateRequest {
     @Size(min = 8, message = "INVALID_PASSWORD")
     String password;
 
+    @DobConstraint(min = 18)
     LocalDate dob;
 
     int status;

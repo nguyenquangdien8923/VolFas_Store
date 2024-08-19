@@ -22,6 +22,7 @@ public class UserResponse {
     String address;
     String email;
     LocalDate joinDate;
+    LocalDate dob;
     int status;
     Set<Role> roles;
 }

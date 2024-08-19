@@ -1,5 +1,6 @@
 package com.devjdib.VolFas_Store.dto.request;
 
+import com.devjdib.VolFas_Store.validator.DobConstraint;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -31,6 +32,7 @@ public class UserCreateRequest {
     @Size(min = 8, message = "INVALID_PASSWORD")
     String password;
 
+    @DobConstraint(min = 18)
     LocalDate dob;
 
     @Builder.Default
